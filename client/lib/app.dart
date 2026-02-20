@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:queue_up/pages/home/home.dart';
+import 'package:queue_up/shared/components/tray_widget.dart';
 import 'package:queue_up/shared/components/windows_title_bar.dart';
 
 class App extends StatelessWidget {
@@ -6,15 +8,10 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Column(
-          children: [
-            WindowsTitleBar(),
-            Expanded(child: Center(child: Text('Hello World!'))),
-          ],
-        ),
+      home: Center(
+        child: ElevatedButton(onPressed: () {}, child: Text("test")),
       ),
     );
   }

@@ -7,9 +7,9 @@ class WindowsTitleBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var btnColor = Theme.of(context).colorScheme.onPrimaryContainer;
-    var barColor = Theme.of(context).colorScheme.primaryContainer;
-    var winBtnColors = WindowButtonColors(iconNormal: btnColor);
+    final btnColor = Theme.of(context).colorScheme.onPrimaryContainer;
+    final barColor = Theme.of(context).colorScheme.primaryContainer;
+    final winBtnColors = WindowButtonColors(iconNormal: btnColor);
 
     return Container(
       color: barColor,

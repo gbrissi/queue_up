@@ -10,10 +10,21 @@ class WindowManager {
       appWindow.size = initialSize;
       appWindow.alignment = Alignment.center;
 
+      WindowOptions windowOptions = const WindowOptions(
+        // Always on top behavior (currently deactivated)
+        // Should be applied when the window is transparent
+        alwaysOnTop: false,
+        // Transparent behavior test
+        // titleBarStyle: TitleBarStyle.hidden,
+        // backgroundColor: Colors.transparent,
+      );
+
       windowManager.ensureInitialized();
-      // Always on top behavior (currently deactivated)
-      WindowOptions windowOptions = const WindowOptions(alwaysOnTop: false);
-      windowManager.waitUntilReadyToShow(windowOptions, () async {});
+      windowManager.waitUntilReadyToShow(windowOptions, () async {
+        // await windowManager.setAsFrameless();
+        await windowManager.setTitleBarStyle(TitleBarStyle.hidden);
+        await windowManager.setBackgroundColor(Colors.transparent);
+      });
 
       appWindow.show();
     });
