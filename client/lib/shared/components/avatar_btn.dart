@@ -28,13 +28,24 @@ class _AvatarBtnState extends State<AvatarBtn> with WindowListener {
             child: InkWell(
               onTap: () => print("tap"),
               borderRadius: BorderRadius.circular(999),
-              child: Ink(
-                color: Theme.of(context).colorScheme.primary,
-                child: SizedBox(
-                  height: 52,
-                  width: 52,
-                  child: const Icon(Icons.person),
-                ),
+              child: LayoutBuilder(
+                builder: (_, constraints) {
+                  final double size =
+                      constraints.maxHeight > constraints.maxWidth
+                          ? constraints.maxWidth
+                          : constraints.maxHeight;
+                  return SizedBox(
+                    width: size,
+                    height: size,
+                    child: Ink(
+                      color: Theme.of(context).colorScheme.primary,
+                      child: Icon(
+                        Icons.person,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ),
