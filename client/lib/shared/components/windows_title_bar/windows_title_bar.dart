@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:queue_up/shared/components/windows_resize_btn.dart';
+import 'package:queue_up/shared/components/windows_title_bar/components/windows_resize_btn.dart';
 
 class WindowsTitleBar extends StatelessWidget {
   const WindowsTitleBar({super.key});
@@ -10,6 +10,11 @@ class WindowsTitleBar extends StatelessWidget {
     final btnColor = Theme.of(context).colorScheme.onPrimaryContainer;
     final barColor = Theme.of(context).colorScheme.primaryContainer;
     final winBtnColors = WindowButtonColors(iconNormal: btnColor);
+
+    void showOverlay() {
+      // TODO: Should open a overlay window if doesn't exist yet
+      // Don't close the application, only through tray icon
+    }
 
     return Container(
       color: barColor,
@@ -21,7 +26,10 @@ class WindowsTitleBar extends StatelessWidget {
               children: [
                 MinimizeWindowButton(colors: winBtnColors),
                 WindowsResizeBtn(colors: winBtnColors),
-                CloseWindowButton(colors: winBtnColors),
+                CloseWindowButton(
+                  colors: winBtnColors,
+                  onPressed: () => showOverlay(),
+                ),
               ],
             ),
           ),
