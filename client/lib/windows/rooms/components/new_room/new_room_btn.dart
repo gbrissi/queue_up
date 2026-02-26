@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:queue_up/windows/rooms/components/new_room/new_room_dialog.dart';
+import 'package:queue_up/windows/rooms/components/new_room/new_room_dlg.dart';
 
 class NewRoomBtn extends StatelessWidget {
   const NewRoomBtn({super.key});
 
   void addRoom(BuildContext ctx) {
-    showDialog(context: ctx, builder: (_) => NewRoomDialog());
+    showDialog(context: ctx, builder: (_) => NewRoomDlg());
   }
 
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class NewRoomDialog extends StatelessWidget {
-  const NewRoomDialog({super.key});
+class NewRoomDlg extends StatelessWidget {
+  const NewRoomDlg({super.key});
 
   @override
   Widget build(BuildContext context) {
