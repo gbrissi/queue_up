@@ -20,7 +20,7 @@ class WindowService {
   }
 
   static Future<void> _setHomeWindow() async {
-    await windowManager.setSize(const Size(720, 480));
+    await windowManager.setSize(const Size(360, 480));
     await windowManager.setAlignment(Alignment.center);
   }
 

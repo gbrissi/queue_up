@@ -10,9 +10,10 @@ class InviteUserBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
+    return IconButton.filledTonal(
+      iconSize: 16,
+      splashRadius: 20,
       icon: const Icon(Icons.person_add_alt_1_outlined),
-      label: const Text("Invite User"),
       onPressed: () => openInviteUserDialog(context),
     );
   }

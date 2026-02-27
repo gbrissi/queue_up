@@ -14,9 +14,12 @@ class User extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipOval(
       child: Material(
-        child: InkWell(
-          onTap: () => openUserDlg(context),
-          child: Image.network(data.avatarUrl, fit: BoxFit.cover),
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: InkWell(
+            onTap: () => openUserDlg(context),
+            child: Image.network(data.avatarUrl, fit: BoxFit.cover),
+          ),
         ),
       ),
     );

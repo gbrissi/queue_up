@@ -26,64 +26,123 @@ class RoomTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Name, ID, Total Users
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.4),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.primary,
-          width: 1,
-        ),
-      ),
-      child: Column(
-        children: [
-          // Metadata
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Material(
+      elevation: 1,
+      borderRadius: BorderRadius.circular(8),
+      child: Ink(
+        color: Theme.of(context).colorScheme.surfaceContainerLow,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          child: Column(
             children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    Text(
-                      data.name,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+              // Metadata
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          data.name,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                          ),
+                        ),
+                        Text(
+                          data.id,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      data.id,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.normal,
+                  ),
+                  Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      InviteUserBtn(),
+                      Positioned(
+                        top: -6,
+                        left: -8,
+                        right: -8,
+                        child: Center(
+                          child: IgnorePointer(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(2),
+                                color:
+                                    Theme.of(
+                                      context,
+                                    ).colorScheme.inverseSurface,
+                              ),
+                              padding: EdgeInsets.all(1),
+                              child: Text(
+                                "${data.totalUsers} user(s)",
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(
+                                        context,
+                                      ).colorScheme.onInverseSurface,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 10,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                ],
+              ),
+              // TODO: Create a horizontal ListView
+              SizedBox(height: 8),
+              Container(
+                padding: EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                ),
+                child: SizedBox(
+                  height: 52,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    separatorBuilder: (context, index) => SizedBox(width: 8),
+                    itemCount: data.users.length + 1,
+                    itemBuilder: (context, index) {
+                      if (index != data.users.length) {
+                        return User(data: data.users[index]);
+                      }
+
+                      // Add more button
+                      return ClipOval(
+                        child: Material(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.secondary.withValues(alpha: 0.4),
+                          child: AspectRatio(
+                            aspectRatio: 1,
+                            child: InkWell(
+                              onTap: () {},
+                              child: Icon(
+                                Icons.add,
+                                color:
+                                    Theme.of(context).colorScheme.onSecondary,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
-              Text(
-                "4 Users",
-                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
-              ),
             ],
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              InviteUserBtn(),
-              Row(
-                children: List.generate(data.totalUsers, (i) {
-                  return i != data.totalUsers - 1
-                      ? Padding(
-                        padding: EdgeInsets.all(8),
-                        child: User(data: data.users[i]),
-                      )
-                      : User(data: data.users[i]);
-                }),
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }

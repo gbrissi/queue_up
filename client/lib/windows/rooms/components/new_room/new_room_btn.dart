@@ -10,8 +10,11 @@ class NewRoomBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Fake tile
     return IconButton.filled(
       onPressed: () => addRoom(context),
+      iconSize: 24,
+      splashRadius: 72,
       icon: Icon(Icons.add),
     );
   }
