@@ -29,10 +29,11 @@ class Rooms extends StatelessWidget {
                       SizedBox(height: 12),
                       Expanded(
                         child: ListView.separated(
-                          itemCount: 2,
+                          itemCount: 2 + 1,
                           separatorBuilder: (_, __) => SizedBox(height: 12),
-                          itemBuilder:
-                              (_, __) => RoomTile(
+                          itemBuilder: (_, i) {
+                            if (i != 2) {
+                              return RoomTile(
                                 data: RoomPreviewData(
                                   id: '120811241023',
                                   name: 'Customer Success',
@@ -45,11 +46,13 @@ class Rooms extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                              ),
+                              );
+                            } else {
+                              return const NewRoomBtn();
+                            }
+                          },
                         ),
                       ),
-                      SizedBox(height: 12),
-                      NewRoomBtn(),
                     ],
                   ),
                 ),

@@ -11,11 +11,24 @@ class NewRoomBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: Fake tile
-    return IconButton.filled(
-      onPressed: () => addRoom(context),
-      iconSize: 24,
-      splashRadius: 72,
-      icon: Icon(Icons.add),
+    return Material(
+      color: Theme.of(context).colorScheme.surfaceContainerHigh,
+      borderRadius: BorderRadius.circular(4),
+      elevation: 2,
+      child: InkWell(
+        onTap: () => addRoom(context),
+        child: SizedBox(
+          height: 64,
+          width: double.infinity,
+          child: Center(
+            child: Icon(
+              Icons.add,
+              size: 24,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
