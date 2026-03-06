@@ -28,7 +28,7 @@ class DropdownTile<T> extends StatefulWidget {
 class _DropdownTileState<T> extends State<DropdownTile<T>> {
   final _overlayController = OverlayPortalController();
 
-  // TODO: 
+  // TODO:
   void openDropdownMenu() {
     _overlayController.show();
   }
@@ -38,18 +38,26 @@ class _DropdownTileState<T> extends State<DropdownTile<T>> {
     return OverlayPortal(
       controller: _overlayController,
       overlayChildBuilder:
-          (_) => ListTile(
-            leading: Icon(widget.icon),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(2),
-            ),
-            trailing: Icon(Icons.chevron_right),
-            onTap: openDropdownMenu,
-            title: Text(
-              widget.text,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+          (_) => Material(
+            elevation: 2,
+            borderRadius: BorderRadius.circular(2),
+            child: Column(
+              children: List.generate(
+                widget.items.length,
+                (i) => widget.items[i].item,
+              ),
             ),
           ),
+      child: ListTile(
+        leading: Icon(widget.icon),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
+        trailing: Icon(Icons.chevron_right),
+        onTap: openDropdownMenu,
+        title: Text(
+          widget.text,
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+        ),
+      ),
     );
   }
 }
