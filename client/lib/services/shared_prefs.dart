@@ -38,13 +38,9 @@ class SharedPrefs {
   }
 
   final String orientationModeKey = 'orientation-mode';
-  Future<OrientationMode?> setOrientationMode(OrientationMode mode) async {
-    final String? modeStr = prefs.getString(orientationModeKey);
-    if (modeStr == null) return null;
-    final OrientationMode mode = OrientationMode.values.firstWhere(
-      (e) => e.toString() == modeStr,
-    );
-    return mode;
+  Future<void> setOrientationMode(OrientationMode mode) async {
+    final String modeStr = mode.toString();
+    await prefs.setString(orientationModeKey, modeStr);
   }
 
   Future<OrientationMode?> getOrientationMode() async {
@@ -55,4 +51,13 @@ class SharedPrefs {
     );
     return mode;
   }
-}
+
+  final String initOnStartupKey = "init-on-startup";
+  Future<void> setInitOnStartup(bool value) async {
+    await prefs.setBool(initOnStartupKey, value);
+  }
+
+  Future<bool?> getInitOnStartup() async {
+   final bool? value = prefs.getBool(initOnStartupKey);
+    return value;
+  } }
