@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 class DropdownOption<T> {
   final T value;
-  final DropdownMenuItem item;
-  DropdownOption({required this.value, required this.item});
+  final IconData? icon;
+  late final String name;
+  DropdownOption({required this.value, String? name, this.icon}) {
+    this.name = name ?? value.toString();
+  }
 }
 
 class DropdownTile<T> extends StatefulWidget {
@@ -44,7 +47,16 @@ class _DropdownTileState<T> extends State<DropdownTile<T>> {
             child: Column(
               children: List.generate(
                 widget.items.length,
-                (i) => widget.items[i].item,
+                (i) => DropdownMenuItem(
+                  onTap: () => widget.onSelect(widget.items[i]),
+                  child: Row(
+                    children: [
+                      Icon(widget.items[i].icon),
+                      SizedBox(width: 4),
+                      Text(widget.items[i].name),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),

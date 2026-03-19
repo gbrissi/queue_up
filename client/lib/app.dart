@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:queue_up/windows/rooms/rooms.dart';
+import 'package:queue_up/windows/settings/settings.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(debugShowCheckedModeBanner: false, home: Rooms());
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Settings(),
+    );
   }
 }
