@@ -29,42 +29,33 @@ class DropdownTile<T> extends StatefulWidget {
 }
 
 class _DropdownTileState<T> extends State<DropdownTile<T>> {
-  final _overlayController = OverlayPortalController();
-
-  // TODO:
-  void openDropdownMenu() {
-    _overlayController.show();
-  }
+  final MenuController _menuController = MenuController();
+  void _toggleMenu() =>
+      _menuController.isOpen ? _menuController.close() : _menuController.open();
 
   @override
   Widget build(BuildContext context) {
-    return OverlayPortal(
-      controller: _overlayController,
-      overlayChildBuilder:
-          (_) => Material(
-            elevation: 2,
-            borderRadius: BorderRadius.circular(2),
-            child: Column(
-              children: List.generate(
-                widget.items.length,
-                (i) => DropdownMenuItem(
-                  onTap: () => widget.onSelect(widget.items[i]),
-                  child: Row(
-                    children: [
-                      Icon(widget.items[i].icon),
-                      SizedBox(width: 4),
-                      Text(widget.items[i].name),
-                    ],
-                  ),
-                ),
+    return MenuAnchor(
+      controller: _menuController,
+      menuChildren:
+          widget.items.map((item) {
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Icon(item.icon),
+                  SizedBox(width: 8),
+                  Text(item.name),
+                ],
               ),
-            ),
-          ),
+            );
+          }).toList(),
       child: ListTile(
+        onTap: _toggleMenu,
         leading: Icon(widget.icon),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
         trailing: Icon(Icons.chevron_right),
-        onTap: openDropdownMenu,
         title: Text(
           widget.text,
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
