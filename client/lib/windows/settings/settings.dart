@@ -4,6 +4,7 @@ import 'package:queue_up/services/shared_prefs.dart';
 import 'package:queue_up/shared/components/base_window.dart';
 import 'package:queue_up/shared/providers/settings_provider.dart';
 import 'package:queue_up/windows/settings/components/dropdown_tile.dart';
+import 'package:queue_up/windows/settings/components/key_combination_tile.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -24,27 +25,57 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return BaseWindow(
-      child: ChangeNotifierProvider(
-        create: (_) => SettingsProvider(),
-        child: Builder(
-          builder: (_) {
-            return Consumer<SettingsProvider>(
-              builder: (_, provider, __) {
-                return Column(
-                  children: [
-                    DropdownTile<ViewMode>(
-                      icon: Icons.mode_standby,
-                      text: "Select View Toggle Mode",
-                      items: viewModeOpts,
-                      selectedItem: selectedViewMode,
-                      onSelect: setViewMode,
-                    ),
-                  ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Settings",
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+          ),
+          SizedBox(height: 24),
+          Text(
+            "Overlay",
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          SizedBox(height: 12),
+          ChangeNotifierProvider(
+            create: (_) => SettingsProvider(),
+            child: Builder(
+              builder: (_) {
+                return Consumer<SettingsProvider>(
+                  builder: (_, provider, __) {
+                    return Column(
+                      children: [
+                        DropdownTile<ViewMode>(
+                          icon: Icons.view_carousel,
+                          text: "Select view toggle mode",
+                          items: viewModeOpts,
+                          selectedItem: selectedViewMode,
+                          onSelect: setViewMode,
+                        ),
+                        SizedBox(height: 8),
+                        KeyCombinationTile(),
+                      ],
+                    );
+                  },
                 );
               },
-            );
-          },
-        ),
+            ),
+          ),
+          SizedBox(height: 24),
+          Text(
+            "Theme",
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ],
       ),
     );
   }

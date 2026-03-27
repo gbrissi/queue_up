@@ -51,14 +51,18 @@ class _DropdownTileState<T> extends State<DropdownTile<T>> {
               ),
             );
           }).toList(),
-      child: ListTile(
-        onTap: _toggleMenu,
-        leading: Icon(widget.icon),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
-        trailing: Icon(Icons.chevron_right),
-        title: Text(
-          widget.text,
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+      child: Material(
+        borderRadius: BorderRadius.circular(2),
+        color: Theme.of(context).colorScheme.surfaceContainer,
+        child: ListTile(
+          onTap: _toggleMenu,
+          leading: Icon(widget.icon),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
+          trailing: Icon(Icons.chevron_right),
+          title: Text(
+            widget.text,
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+          ),
         ),
       ),
     );
