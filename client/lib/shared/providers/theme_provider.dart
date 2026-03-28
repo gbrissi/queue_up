@@ -30,17 +30,19 @@ class ThemeProvider with ChangeNotifier {
   Color get seedColor => _seedColor;
 
   void toggleTheme() {
-    _themeMode = isDarkMode ? ThemeMode.light : ThemeMode.dark;
-    notifyListeners();
+    final ThemeMode mode = isDarkMode ? ThemeMode.light : ThemeMode.dark;
+    setTheme(mode);
   }
 
   void setTheme(ThemeMode mode) {
     _themeMode = mode;
+    SharedPrefs.setThemeMode(_themeMode);
     notifyListeners();
   }
 
   void setSeedColor(Color color) {
     _seedColor = color;
+    SharedPrefs.setThemeColor(color);
     notifyListeners();
   }
 }

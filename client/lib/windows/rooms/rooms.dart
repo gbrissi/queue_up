@@ -11,8 +11,17 @@ class Rooms extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseWindow(
+      enableScroll: false,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text(
+            "Rooms",
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+          ),
+          SizedBox(height: 24),
           RoomSearchBar(),
           SizedBox(height: 12),
           Expanded(

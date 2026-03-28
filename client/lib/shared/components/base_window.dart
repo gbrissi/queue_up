@@ -2,9 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:queue_up/shared/components/menu_btn.dart';
 import 'package:queue_up/shared/components/windows_title_bar/windows_title_bar.dart';
 
-class BaseWindow extends StatelessWidget {
-  const BaseWindow({super.key, required this.child});
+class BaseWindow extends StatefulWidget {
+  const BaseWindow({
+    super.key,
+    required this.child,
+    this.enableScroll = true,
+    this.enablePadding = true,
+  });
   final Widget child;
+  final bool enableScroll;
+  final bool enablePadding;
+
+  @override
+  State<BaseWindow> createState() => _BaseWindowState();
+}
+
+class _BaseWindowState extends State<BaseWindow> {
+  buildChild() {
+    Widget newChild = widget.child;
+    if (widget.enablePadding) {
+      newChild = Padding(padding: const EdgeInsets.all(24), child: newChild);
+    }
+
+    if (widget.enableScroll) {
+      newChild = ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+        child: SingleChildScrollView(child: newChild),
+      );
+    }
+
+    return newChild;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +47,15 @@ class BaseWindow extends StatelessWidget {
             Expanded(
               child: Stack(
                 children: [
-                  Align(alignment: Alignment.topRight, child: MenuBtn()),
-                  Padding(padding: EdgeInsets.all(24), child: child),
+                  LayoutBuilder(
+                    builder: (_, constraints) {
+                      return SizedBox(
+                        height: constraints.maxHeight,
+                        child: buildChild(),
+                      );
+                    },
+                  ),
+                  Positioned(top: 4, right: 4, child: MenuBtn()),
                 ],
               ),
             ),

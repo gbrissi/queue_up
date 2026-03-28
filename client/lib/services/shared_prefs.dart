@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:queue_up/extensions/hex_color.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum ViewMode { toggle, hold }
@@ -78,12 +79,13 @@ class SharedPrefs {
 
   static final String themeColorKey = "theme-color";
   static Future<void> setThemeColor(Color color) async {
-    await prefs.setString(themeColorKey, color.toString());
+    final String hexColor = color.toHex();
+    await prefs.setString(themeColorKey, hexColor);
   }
 
   static Future<Color?> getThemeColor() async {
     final String? value = prefs.getString(themeColorKey);
     if (value == null) return null;
-    return Color(int.parse(value));
+    return HexColor.fromHex(value);
   }
 }

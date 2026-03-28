@@ -4,8 +4,10 @@ import 'package:queue_up/services/shared_prefs.dart';
 import 'package:queue_up/shared/components/base_window.dart';
 import 'package:queue_up/shared/providers/settings_provider.dart';
 import 'package:queue_up/shared/providers/theme_provider.dart';
+import 'package:queue_up/windows/settings/components/color_option.dart';
 import 'package:queue_up/windows/settings/components/dropdown_tile.dart';
 import 'package:queue_up/windows/settings/components/key_combination_tile.dart';
+import 'package:queue_up/windows/settings/providers/color_options_provider.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -88,6 +90,17 @@ class _SettingsState extends State<Settings> {
                   onChanged: (_) => p.toggleTheme(),
                 );
               },
+            ),
+          ),
+          SizedBox(height: 12),
+          Text("Select a seed color", style: TextStyle(fontSize: 15)),
+          SizedBox(height: 4),
+          Wrap(
+            spacing: 2,
+            runSpacing: 2,
+            children: List.generate(
+              defaultColors.length,
+              (i) => ColorOption(color: defaultColors[i]),
             ),
           ),
         ],
