@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:queue_up/shared/providers/theme_provider.dart';
 import 'package:queue_up/windows/settings/settings.dart';
 
 class App extends StatelessWidget {
@@ -6,9 +8,27 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Settings(),
+    return ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: Builder(
+        builder: (_) {
+          return Consumer<ThemeProvider>(
+            builder: (_, p, __) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                home: Settings(),
+                theme: ThemeData(
+                  useMaterial3: true,
+                  colorScheme: ColorScheme.fromSeed(
+                    seedColor: p.seedColor,
+                    brightness: p.brightness,
+                  ),
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

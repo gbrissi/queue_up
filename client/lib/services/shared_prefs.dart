@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum ViewMode { toggle, hold }
+
 enum OrientationMode { horizontal, vertical }
 
 class SharedPrefs {
@@ -58,6 +60,30 @@ class SharedPrefs {
   }
 
   Future<bool?> getInitOnStartup() async {
-   final bool? value = prefs.getBool(initOnStartupKey);
+    final bool? value = prefs.getBool(initOnStartupKey);
     return value;
-  } }
+  }
+
+  // Theme
+  static final String themeModeKey = "theme-mode";
+  static Future<void> setThemeMode(ThemeMode value) async {
+    await prefs.setInt(themeModeKey, value.index);
+  }
+
+  static Future<ThemeMode?> getThemeMode() async {
+    final int? value = prefs.getInt(themeModeKey);
+    if (value == null) return null;
+    return ThemeMode.values[value];
+  }
+
+  static final String themeColorKey = "theme-color";
+  static Future<void> setThemeColor(Color color) async {
+    await prefs.setString(themeColorKey, color.toString());
+  }
+
+  static Future<Color?> getThemeColor() async {
+    final String? value = prefs.getString(themeColorKey);
+    if (value == null) return null;
+    return Color(int.parse(value));
+  }
+}

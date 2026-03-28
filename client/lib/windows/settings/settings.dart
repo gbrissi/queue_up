@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:queue_up/services/shared_prefs.dart';
 import 'package:queue_up/shared/components/base_window.dart';
 import 'package:queue_up/shared/providers/settings_provider.dart';
+import 'package:queue_up/shared/providers/theme_provider.dart';
 import 'package:queue_up/windows/settings/components/dropdown_tile.dart';
 import 'package:queue_up/windows/settings/components/key_combination_tile.dart';
 
@@ -73,6 +74,20 @@ class _SettingsState extends State<Settings> {
             style: Theme.of(context).textTheme.titleMedium!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
               fontWeight: FontWeight.w400,
+            ),
+          ),
+          SizedBox(height: 12),
+          Material(
+            borderRadius: BorderRadius.circular(2),
+            color: Theme.of(context).colorScheme.surfaceContainerLow,
+            child: Consumer<ThemeProvider>(
+              builder: (_, p, __) {
+                return SwitchListTile(
+                  value: p.isDarkMode,
+                  title: Text("Dark Mode"),
+                  onChanged: (_) => p.toggleTheme(),
+                );
+              },
             ),
           ),
         ],
