@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:queue_up/services/shared_prefs.dart';
 import 'package:queue_up/shared/components/base_window.dart';
-import 'package:queue_up/shared/providers/settings_provider.dart';
+import 'package:queue_up/shared/providers/misc_settings_provider.dart';
+import 'package:queue_up/shared/providers/overlay_settings_provider.dart';
 import 'package:queue_up/shared/providers/theme_provider.dart';
 import 'package:queue_up/windows/settings/components/color_option.dart';
 import 'package:queue_up/windows/settings/components/dropdown_tile.dart';
@@ -46,29 +47,26 @@ class _SettingsState extends State<Settings> {
             ),
           ),
           SizedBox(height: 12),
-          ChangeNotifierProvider(
-            create: (_) => SettingsProvider(),
-            child: Builder(
-              builder: (_) {
-                return Consumer<SettingsProvider>(
-                  builder: (_, provider, __) {
-                    return Column(
-                      children: [
-                        DropdownTile<ViewMode>(
-                          icon: Icons.view_carousel,
-                          text: "Select view toggle mode",
-                          items: viewModeOpts,
-                          selectedItem: selectedViewMode,
-                          onSelect: setViewMode,
-                        ),
-                        SizedBox(height: 8),
-                        KeyCombinationTile(),
-                      ],
-                    );
-                  },
-                );
-              },
-            ),
+          Builder(
+            builder: (_) {
+              return Consumer<OverlaySettingsProvider>(
+                builder: (_, provider, __) {
+                  return Column(
+                    children: [
+                      DropdownTile<ViewMode>(
+                        icon: Icons.view_carousel,
+                        text: "Select view toggle mode",
+                        items: viewModeOpts,
+                        selectedItem: selectedViewMode,
+                        onSelect: setViewMode,
+                      ),
+                      SizedBox(height: 8),
+                      KeyCombinationTile(),
+                    ],
+                  );
+                },
+              );
+            },
           ),
           SizedBox(height: 24),
           Text(
@@ -102,6 +100,27 @@ class _SettingsState extends State<Settings> {
               defaultColors.length,
               (i) => ColorOption(color: defaultColors[i]),
             ),
+          ),
+          SizedBox(height: 24),
+          Text(
+            "Miscellaneous",
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          SizedBox(height: 12),
+          Builder(
+            builder: (_) {
+              return Consumer<MiscSettingsProvider>(
+                builder:
+                    (_, p, __) => SwitchListTile(
+                      value: p.initOnStartup,
+                      title: Text("Init on Startup"),
+                      onChanged: (val) => p.setInitOnStartup(val),
+                    ),
+              );
+            },
           ),
         ],
       ),

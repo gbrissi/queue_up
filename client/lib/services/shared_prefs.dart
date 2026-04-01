@@ -12,13 +12,13 @@ class SharedPrefs {
   static Future<void> init() async =>
       prefs = await SharedPreferences.getInstance();
 
-  final String viewModeKey = 'view-mode';
-  Future<void> setViewMode(ViewMode mode) async {
+  static final String viewModeKey = 'view-mode';
+  static Future<void> setViewMode(ViewMode mode) async {
     final String modeStr = mode.toString();
     await prefs.setString(viewModeKey, modeStr);
   }
 
-  Future<ViewMode?> getViewMode() async {
+  static Future<ViewMode?> getViewMode() async {
     final String? modeStr = prefs.getString(viewModeKey);
     if (modeStr == null) return null;
     final ViewMode mode = ViewMode.values.firstWhere(
@@ -27,26 +27,26 @@ class SharedPrefs {
     return mode;
   }
 
-  final String toggleViewKey = 'toggle-view-btn';
-  Future<void> setToggleViewBtn(LogicalKeyboardKey key) async {
+  static final String toggleViewKey = 'toggle-view-btn';
+  static Future<void> setToggleViewBtn(LogicalKeyboardKey key) async {
     final int keyId = key.keyId;
     await prefs.setInt(toggleViewKey, keyId);
   }
 
-  Future<LogicalKeyboardKey?> getToggleViewBtn() async {
+  static Future<LogicalKeyboardKey?> getToggleViewBtn() async {
     final int? keyId = prefs.getInt(viewModeKey);
     if (keyId == null) return null;
     final LogicalKeyboardKey key = LogicalKeyboardKey(keyId);
     return key;
   }
 
-  final String orientationModeKey = 'orientation-mode';
-  Future<void> setOrientationMode(OrientationMode mode) async {
+  static final String orientationModeKey = 'orientation-mode';
+  static Future<void> setOrientationMode(OrientationMode mode) async {
     final String modeStr = mode.toString();
     await prefs.setString(orientationModeKey, modeStr);
   }
 
-  Future<OrientationMode?> getOrientationMode() async {
+  static Future<OrientationMode?> getOrientationMode() async {
     final String? modeStr = prefs.getString(orientationModeKey);
     if (modeStr == null) return null;
     final OrientationMode mode = OrientationMode.values.firstWhere(
@@ -55,12 +55,12 @@ class SharedPrefs {
     return mode;
   }
 
-  final String initOnStartupKey = "init-on-startup";
-  Future<void> setInitOnStartup(bool value) async {
+  static final String initOnStartupKey = "init-on-startup";
+  static Future<void> setInitOnStartup(bool value) async {
     await prefs.setBool(initOnStartupKey, value);
   }
 
-  Future<bool?> getInitOnStartup() async {
+  static Future<bool?> getInitOnStartup() async {
     final bool? value = prefs.getBool(initOnStartupKey);
     return value;
   }
