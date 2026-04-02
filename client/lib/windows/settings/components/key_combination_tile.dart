@@ -3,6 +3,17 @@ import 'package:flutter/material.dart';
 class KeyCombinationTile extends StatelessWidget {
   const KeyCombinationTile({super.key});
 
+  void openCombinationDlg(context) {
+    showDialog(
+      context: context,
+      builder:
+          (_) => AlertDialog(
+            title: Text('Key combination'),
+            content: Text('Ctrl + K'),
+          ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -15,14 +26,17 @@ class KeyCombinationTile extends StatelessWidget {
         trailing: Material(
           borderRadius: BorderRadius.circular(2),
           color: Theme.of(context).colorScheme.onSurfaceVariant,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            child: Text(
-              'Ctrl + K',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: Theme.of(context).colorScheme.surface,
+          child: InkWell(
+            onTap: () => openCombinationDlg(context),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              child: Text(
+                'Ctrl + K',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).colorScheme.surface,
+                ),
               ),
             ),
           ),

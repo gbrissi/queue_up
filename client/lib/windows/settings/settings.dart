@@ -26,6 +26,8 @@ class _SettingsState extends State<Settings> {
     DropdownOption(value: ViewMode.hold, name: "Hold"),
   ];
 
+  void openKeyCombDlg() {}
+
   @override
   Widget build(BuildContext context) {
     return BaseWindow(
@@ -47,26 +49,29 @@ class _SettingsState extends State<Settings> {
             ),
           ),
           SizedBox(height: 12),
-          Builder(
-            builder: (_) {
-              return Consumer<OverlaySettingsProvider>(
-                builder: (_, provider, __) {
-                  return Column(
-                    children: [
-                      DropdownTile<ViewMode>(
-                        icon: Icons.view_carousel,
-                        text: "Select view toggle mode",
-                        items: viewModeOpts,
-                        selectedItem: selectedViewMode,
-                        onSelect: setViewMode,
-                      ),
-                      SizedBox(height: 8),
-                      KeyCombinationTile(),
-                    ],
-                  );
-                },
-              );
-            },
+          ChangeNotifierProvider(
+            create: (_) => OverlaySettingsProvider(),
+            child: Builder(
+              builder: (_) {
+                return Consumer<OverlaySettingsProvider>(
+                  builder: (_, provider, __) {
+                    return Column(
+                      children: [
+                        DropdownTile<ViewMode>(
+                          icon: Icons.view_carousel,
+                          text: "Select view toggle mode",
+                          items: viewModeOpts,
+                          selectedItem: selectedViewMode,
+                          onSelect: setViewMode,
+                        ),
+                        SizedBox(height: 8),
+                        KeyCombinationTile(),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
           ),
           SizedBox(height: 24),
           Text(
@@ -93,12 +98,19 @@ class _SettingsState extends State<Settings> {
           SizedBox(height: 12),
           Text("Select a seed color", style: TextStyle(fontSize: 15)),
           SizedBox(height: 4),
-          Wrap(
-            spacing: 2,
-            runSpacing: 2,
-            children: List.generate(
-              defaultColors.length,
-              (i) => ColorOption(color: defaultColors[i]),
+          Material(
+            borderRadius: BorderRadius.circular(4),
+            color: Theme.of(context).colorScheme.surfaceContainerLow,
+            child: Padding(
+              padding: EdgeInsetsGeometry.all(8),
+              child: Wrap(
+                spacing: 2,
+                runSpacing: 2,
+                children: List.generate(
+                  defaultColors.length,
+                  (i) => ColorOption(color: defaultColors[i]),
+                ),
+              ),
             ),
           ),
           SizedBox(height: 24),
@@ -110,17 +122,22 @@ class _SettingsState extends State<Settings> {
             ),
           ),
           SizedBox(height: 12),
-          Builder(
-            builder: (_) {
-              return Consumer<MiscSettingsProvider>(
-                builder:
-                    (_, p, __) => SwitchListTile(
-                      value: p.initOnStartup,
-                      title: Text("Init on Startup"),
-                      onChanged: (val) => p.setInitOnStartup(val),
-                    ),
-              );
-            },
+          ChangeNotifierProvider(
+            create: (_) => MiscSettingsProvider(),
+            child: Builder(
+              builder: (_) {
+                return Consumer<MiscSettingsProvider>(
+                  builder:
+                      (_, p, __) => SwitchListTile(
+                        tileColor:
+                            Theme.of(context).colorScheme.surfaceContainerLow,
+                        value: p.initOnStartup,
+                        title: Text("Init on Startup"),
+                        onChanged: (val) => p.setInitOnStartup(val),
+                      ),
+                );
+              },
+            ),
           ),
         ],
       ),
