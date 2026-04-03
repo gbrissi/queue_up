@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:queue_up/windows/settings/components/key_listener.dart';
 
 class KeyCombinationTile extends StatelessWidget {
   const KeyCombinationTile({super.key});
@@ -9,7 +10,7 @@ class KeyCombinationTile extends StatelessWidget {
       builder:
           (_) => AlertDialog(
             title: Text('Key combination'),
-            content: Text('Ctrl + K'),
+            content: KeyListener(),
           ),
     );
   }
