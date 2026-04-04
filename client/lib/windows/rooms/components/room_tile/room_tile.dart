@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:queue_up/windows/rooms/components/room_tile/components/invite_user_btn.dart';
+import 'package:provider/provider.dart';
+import 'package:queue_up/shared/components/dialog/dialog_provider.dart';
 import 'package:queue_up/windows/rooms/components/room_tile/components/user.dart';
 
 class UserCore {
@@ -19,10 +20,15 @@ class RoomPreviewData {
   RoomPreviewData({required this.id, required this.name, required this.users});
 }
 
-class RoomTile extends StatelessWidget {
+class RoomTile extends StatefulWidget {
   const RoomTile({super.key, required this.data});
   final RoomPreviewData data;
 
+  @override
+  State<RoomTile> createState() => _RoomTileState();
+}
+
+class _RoomTileState extends State<RoomTile> {
   @override
   Widget build(BuildContext context) {
     // Name, ID, Total Users
@@ -44,14 +50,14 @@ class RoomTile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          data.name,
+                          widget.data.name,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
                           ),
                         ),
                         Text(
-                          data.id,
+                          widget.data.id,
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w300,
@@ -59,42 +65,6 @@ class RoomTile extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
-                  Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      InviteUserBtn(),
-                      Positioned(
-                        top: -6,
-                        left: -8,
-                        right: -8,
-                        child: Center(
-                          child: IgnorePointer(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(2),
-                                color:
-                                    Theme.of(
-                                      context,
-                                    ).colorScheme.inverseSurface,
-                              ),
-                              padding: EdgeInsets.all(1),
-                              child: Text(
-                                "${data.totalUsers} user(s)",
-                                style: TextStyle(
-                                  color:
-                                      Theme.of(
-                                        context,
-                                      ).colorScheme.onInverseSurface,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 10,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),
@@ -111,10 +81,10 @@ class RoomTile extends StatelessWidget {
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     separatorBuilder: (context, index) => SizedBox(width: 8),
-                    itemCount: data.users.length + 1,
+                    itemCount: widget.data.users.length + 1,
                     itemBuilder: (context, index) {
-                      if (index != data.users.length) {
-                        return User(data: data.users[index]);
+                      if (index != widget.data.users.length) {
+                        return User(data: widget.data.users[index]);
                       }
 
                       // Add more button

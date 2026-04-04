@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:queue_up/shared/components/dialog/dialog_overlay.dart';
 import 'package:queue_up/shared/components/dialog/dialog_provider.dart';
-import 'package:queue_up/windows/rooms/components/new_room/dialogs/new_room_dlg.dart';
+import 'package:queue_up/windows/rooms/components/dialogs/new_room_dlg.dart';
 
 class NewRoomBtn extends StatelessWidget {
   const NewRoomBtn({super.key});
