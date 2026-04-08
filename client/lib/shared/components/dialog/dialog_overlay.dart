@@ -94,29 +94,32 @@ class _DialogLayout extends StatelessWidget {
     final controller = context.read<DialogProvider>();
     return Stack(
       children: [
-        Container(color: Colors.black.withValues(alpha: 0.5)),
+        Material(
+          color: Colors.black.withValues(alpha: 0.5),
+          child: InkWell(
+            onTap: () => controller.hide(),
+            child: SizedBox.expand(),
+          ),
+        ),
         Center(
-          child: Padding(
-            padding: EdgeInsets.all(12),
-            child: Material(
-              elevation: 2,
-              borderRadius: BorderRadius.circular(8),
-              child: Padding(
-                padding: EdgeInsets.all(12),
-                child: Stack(
-                  children: [
-                    Positioned(
-                      right: 0,
-                      child: IconButton(
-                        iconSize: 16,
-                        splashRadius: 24,
-                        onPressed: () => controller.hide(),
-                        icon: Icon(Icons.close),
-                      ),
+          child: Material(
+            elevation: 2,
+            borderRadius: BorderRadius.circular(8),
+            child: Padding(
+              padding: EdgeInsets.all(12),
+              child: Stack(
+                children: [
+                  child,
+                  Positioned(
+                    right: 0,
+                    child: IconButton(
+                      iconSize: 16,
+                      splashRadius: 24,
+                      onPressed: () => controller.hide(),
+                      icon: Icon(Icons.close),
                     ),
-                    child,
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -141,32 +144,55 @@ class DialogContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(12),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-              ),
-              Text(
-                subtitle,
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
-              ),
-            ],
+    return SizedBox(
+      width: 280,
+      child: Padding(
+        padding: EdgeInsets.all(8),
+        child: Material(
+          borderRadius: BorderRadius.circular(4),
+          child: Padding(
+            padding: EdgeInsets.all(12),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      subtitle,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 12),
+                ...children,
+                if (actions != null)
+                  Padding(
+                    padding: EdgeInsets.only(top: 24),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        spacing: 4,
+                        children: actions!,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ),
-          SizedBox(height: 12),
-          ...children,
-          if (actions != null) ...[
-            SizedBox(height: 24),
-            Row(mainAxisAlignment: MainAxisAlignment.end, children: actions!),
-          ],
-        ],
+        ),
       ),
     );
   }

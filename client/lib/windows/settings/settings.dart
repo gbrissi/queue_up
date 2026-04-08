@@ -5,6 +5,7 @@ import 'package:queue_up/shared/components/base_window.dart';
 import 'package:queue_up/shared/providers/misc_settings_provider.dart';
 import 'package:queue_up/shared/providers/overlay_settings_provider.dart';
 import 'package:queue_up/shared/providers/theme_provider.dart';
+import 'package:queue_up/windows/settings/components/add_color_btn.dart';
 import 'package:queue_up/windows/settings/components/color_option.dart';
 import 'package:queue_up/windows/settings/components/dropdown_tile.dart';
 import 'package:queue_up/windows/settings/components/key_combination_tile.dart';
@@ -106,10 +107,13 @@ class _SettingsState extends State<Settings> {
               child: Wrap(
                 spacing: 2,
                 runSpacing: 2,
-                children: List.generate(
-                  defaultColors.length,
-                  (i) => ColorOption(color: defaultColors[i]),
-                ),
+                children: [
+                  ...List.generate(
+                    defaultColors.length,
+                    (i) => ColorOption(color: defaultColors[i]),
+                  ),
+                  AddColorBtn(),
+                ],
               ),
             ),
           ),
