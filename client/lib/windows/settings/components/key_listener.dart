@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:queue_up/extensions/list_extension.dart';
 
 class KeyListener extends StatefulWidget {
-  const KeyListener({super.key, this.keys});
+  const KeyListener({super.key, this.keys, this.maxKeys = 3});
   final List<KeyEvent>? keys;
+  final int maxKeys;
 
   @override
   State<KeyListener> createState() => _KeyListenerState();
@@ -26,19 +28,13 @@ class _KeyListenerState extends State<KeyListener> {
   List<String> get _strKeys =>
       _currentKeys.map((e) => e.logicalKey.keyLabel).toList();
 
-  // TODO: Add max 3 chars
   void _onKeyEvent(KeyEvent event) {
-    if (event is KeyUpEvent && isCapturing) {
-      // Finish capture
-      isCapturing = false;
-      _focusNode.unfocus();
-    }
-
     if (event is KeyDownEvent) {
       // Start Capturing
       if (!isCapturing) {
-        isCapturing = true;
+        startCapture();
         _currentKeys = <KeyEvent>[];
+        setState(() {});
       }
 
       // Update
@@ -48,12 +44,30 @@ class _KeyListenerState extends State<KeyListener> {
         setState(() {});
       }
     }
+
+    // End Capturing
+    if ((event is KeyUpEvent && isCapturing) ||
+        (_currentKeys.length == widget.maxKeys)) {
+      dismissCapture();
+    }
+  }
+
+  void startCapture() {
+    isCapturing = true;
+    if (!_focusNode.hasFocus) _focusNode.requestFocus();
+    setState(() {});
+  }
+
+  void dismissCapture() {
+    isCapturing = false;
+    if (_focusNode.hasFocus) _focusNode.unfocus();
+    setState(() {});
   }
 
   @override
   void initState() {
-    _focusNode.requestFocus();
     super.initState();
+    _focusNode.requestFocus();
   }
 
   @override
@@ -63,12 +77,24 @@ class _KeyListenerState extends State<KeyListener> {
       onKeyEvent: _onKeyEvent,
       child: InkWell(
         onTap: () => _focusNode.requestFocus(),
-        child: Text.rich(
-          TextSpan(
-            children: [
-              TextSpan(text: 'Keys: '),
-              TextSpan(text: _strKeys.join(' + ')),
-            ],
+        child: Container(
+          padding: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            color:
+                !isCapturing
+                    ? Theme.of(context).colorScheme.surfaceContainerHigh
+                    : Theme.of(context).colorScheme.primary,
+          ),
+
+          child: Text.rich(
+            TextSpan(
+              style: TextStyle(color: !isCapturing ? null : Colors.white),
+              children: [
+                TextSpan(text: 'Keys: '),
+                TextSpan(text: _strKeys.join(' + ')),
+              ],
+            ),
           ),
         ),
       ),

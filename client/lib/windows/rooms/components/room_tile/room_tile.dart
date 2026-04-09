@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:queue_up/shared/components/dialog/dialog_provider.dart';
 import 'package:queue_up/windows/rooms/components/room_tile/components/user.dart';
 
 class UserCore {
