@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:queue_up/shared/components/dialog/dialog_provider.dart';
 
@@ -54,11 +55,23 @@ class _DialogOverlayState extends State<_DialogOverlayImpl>
 
     _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
     _controller.forward();
+
+    HardwareKeyboard.instance.addHandler(_onKeyEvent);
+  }
+
+  bool _onKeyEvent(KeyEvent keyEvent) {
+    if (keyEvent.logicalKey == LogicalKeyboardKey.escape) {
+      _overlayController.hide();
+      return false;
+    }
+
+    return true;
   }
 
   @override
   void dispose() {
     _dlgProvider.removeListener(updateOverlay);
+    HardwareKeyboard.instance.removeHandler(_onKeyEvent);
     super.dispose();
   }
 

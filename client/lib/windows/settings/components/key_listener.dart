@@ -13,7 +13,7 @@ class KeyListener extends StatefulWidget {
 }
 
 class _KeyListenerState extends State<KeyListener> {
-  final FocusNode _focusNode = FocusNode();
+  // final FocusNode _focusNode = FocusNode();
   late List<KeyEvent> _currentKeys = <KeyEvent>[] = widget.keys ?? <KeyEvent>[];
   bool isCapturing = false;
 
@@ -54,48 +54,53 @@ class _KeyListenerState extends State<KeyListener> {
 
   void startCapture() {
     isCapturing = true;
-    if (!_focusNode.hasFocus) _focusNode.requestFocus();
     setState(() {});
   }
 
   void dismissCapture() {
     isCapturing = false;
-    if (_focusNode.hasFocus) _focusNode.unfocus();
     setState(() {});
+  }
+
+  bool _hkHandler(KeyEvent e) {
+    if (e.logicalKey == LogicalKeyboardKey.escape) {
+      return false;
+    } else {
+      _onKeyEvent(e);
+      return true;
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    _focusNode.requestFocus();
+    HardwareKeyboard.instance.addHandler(_hkHandler);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    HardwareKeyboard.instance.removeHandler(_hkHandler);
   }
 
   @override
   Widget build(BuildContext context) {
-    return KeyboardListener(
-      focusNode: _focusNode,
-      onKeyEvent: _onKeyEvent,
-      child: InkWell(
-        onTap: () => _focusNode.requestFocus(),
-        child: Container(
-          padding: const EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-            color:
-                !isCapturing
-                    ? Theme.of(context).colorScheme.surfaceContainerHigh
-                    : Theme.of(context).colorScheme.primary,
-          ),
-
-          child: Text.rich(
-            TextSpan(
-              style: TextStyle(color: !isCapturing ? null : Colors.white),
-              children: [
-                TextSpan(text: 'Keys: '),
-                TextSpan(text: _strKeys.join(' + ')),
-              ],
-            ),
-          ),
+    return Container(
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4),
+        color:
+            !isCapturing
+                ? Theme.of(context).colorScheme.surfaceContainerHigh
+                : Theme.of(context).colorScheme.primary,
+      ),
+      child: Text.rich(
+        TextSpan(
+          style: TextStyle(color: !isCapturing ? null : Colors.white),
+          children: [
+            TextSpan(text: 'Keys: '),
+            TextSpan(text: _strKeys.join(' + ')),
+          ],
         ),
       ),
     );

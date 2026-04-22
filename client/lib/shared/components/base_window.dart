@@ -8,9 +8,11 @@ class BaseWindow extends StatefulWidget {
     required this.child,
     this.enableScroll = true,
     this.enablePadding = true,
+    this.showBackButton = false,
   });
   final Widget child;
   final bool enableScroll;
+  final bool showBackButton;
   final bool enablePadding;
 
   @override
@@ -20,6 +22,7 @@ class BaseWindow extends StatefulWidget {
 class _BaseWindowState extends State<BaseWindow> {
   buildChild() {
     Widget newChild = widget.child;
+
     if (widget.enablePadding) {
       newChild = Padding(padding: const EdgeInsets.all(24), child: newChild);
     }
@@ -51,7 +54,18 @@ class _BaseWindowState extends State<BaseWindow> {
                     builder: (_, constraints) {
                       return SizedBox(
                         height: constraints.maxHeight,
-                        child: buildChild(),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (widget.showBackButton)
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(4, 4, 0, 0),
+                                child: BackButton(),
+                              ),
+                            Expanded(child: buildChild()),
+                          ],
+                        ),
                       );
                     },
                   ),
