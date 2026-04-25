@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:queue_up/shared/components/dialog/dialog_overlay.dart';
 import 'package:queue_up/shared/components/dialog/dialog_provider.dart';
+import 'package:queue_up/windows/rooms/components/dialogs/join_room_dlg.dart';
 import 'package:queue_up/windows/rooms/components/dialogs/new_room_dlg.dart';
 
 class NewRoomBtn extends StatelessWidget {
@@ -10,7 +11,11 @@ class NewRoomBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DialogOverlay(
-      options: [DialogOption(name: 'new-room', content: NewRoomDlg())],
+      options: [
+        DialogOption(name: 'new-room', content: NewRoomDlg()),
+        // TODO: It's meant to be New Room option
+        DialogOption(name: 'join-room', content: JoinRoomDlg()),
+      ],
       child: const _NewRoomImpl(),
     );
   }

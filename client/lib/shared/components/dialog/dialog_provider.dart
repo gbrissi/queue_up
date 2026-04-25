@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class DialogOption {
   final String name;
   final Widget content;
-  DialogOption({required this.name, required this.content});
+  final List<DialogOption>? options;
+  DialogOption({required this.name, required this.content, this.options});
 }
 
 class DialogProvider extends ChangeNotifier {
@@ -19,7 +20,7 @@ class DialogProvider extends ChangeNotifier {
   void show({required String name}) {
     _showDialog = true;
     // TODO: Add where or null
-    _dlgOptions.where((e) => e.name == name);
+    currentOption = _dlgOptions.where((e) => e.name == name).first;
     notifyListeners();
   }
 
