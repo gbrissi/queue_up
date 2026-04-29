@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:queue_up/shared/components/custom_search_bar.dart';
 
-class RoomSearchBar extends StatelessWidget {
-  const RoomSearchBar({super.key});
+class HistorySearchBar extends StatelessWidget {
+  const HistorySearchBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // TODO:
     return CustomSearchBar(hint: 'Search for a room');
   }
 }

@@ -36,6 +36,9 @@ class _ColorPickerDlgState extends State<ColorPickerDlg> {
           pickerColor: _pickerColor,
           onColorChanged: _setPickerColor,
           enableAlpha: false,
+          showLabel: false,
+          colorPickerWidth: 300,
+          pickerAreaHeightPercent: 0.4,
         ),
       ],
     );

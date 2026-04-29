@@ -115,24 +115,27 @@ class _DialogLayout extends StatelessWidget {
           ),
         ),
         Center(
-          child: Material(
-            elevation: 2,
-            borderRadius: BorderRadius.circular(8),
-            child: Padding(
-              padding: EdgeInsets.all(12),
-              child: Stack(
-                children: [
-                  child,
-                  Positioned(
-                    right: 0,
-                    child: IconButton(
-                      iconSize: 16,
-                      splashRadius: 24,
-                      onPressed: () => controller.hide(),
-                      icon: Icon(Icons.close),
+          child: Padding(
+            padding: EdgeInsets.all(8),
+            child: Material(
+              elevation: 2,
+              borderRadius: BorderRadius.circular(8),
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: Stack(
+                  children: [
+                    child,
+                    Positioned(
+                      right: 0,
+                      child: IconButton(
+                        iconSize: 16,
+                        splashRadius: 24,
+                        onPressed: () => controller.hide(),
+                        icon: Icon(Icons.close),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
