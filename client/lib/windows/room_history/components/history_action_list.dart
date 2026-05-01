@@ -4,14 +4,18 @@ import 'package:queue_up/windows/room_history/models/action.dart';
 
 class HistoryActionList extends StatelessWidget {
   HistoryActionList({super.key});
-  final List<HistoryAction> actions = [];
+  final List<HistoryAction> actions = [HistoryAction(), HistoryAction()];
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: actions.length,
-      itemBuilder: (_, index) => HistoryActionTile(value: actions[index]),
+      itemBuilder:
+          (_, index) => Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: HistoryActionTile(value: actions[index]),
+          ),
     );
   }
 }

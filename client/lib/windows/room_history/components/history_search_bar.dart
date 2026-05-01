@@ -6,6 +6,6 @@ class HistorySearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomSearchBar(hint: 'Search for a room');
+    return CustomSearchBar(hint: 'Search for an action');
   }
 }
