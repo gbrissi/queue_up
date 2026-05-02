@@ -43,6 +43,16 @@ class _SettingsState extends State<Settings> {
           ),
           SizedBox(height: 24),
           Text(
+            "Profile",
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          // Profile
+          ListTile(),
+          SizedBox(height: 12),
+          Text(
             "Overlay",
             style: Theme.of(context).textTheme.titleMedium!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,

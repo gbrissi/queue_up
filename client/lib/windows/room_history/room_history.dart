@@ -16,7 +16,7 @@ class RoomHistory extends StatelessWidget {
           HistoryTitle(),
           SizedBox(height: 24),
           HistorySearchBar(),
-          SizedBox(height: 12),
+          SizedBox(height: 4),
           HistoryActionList(),
         ],
       ),
