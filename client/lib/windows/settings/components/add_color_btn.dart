@@ -17,12 +17,11 @@ class AddColorBtn extends StatelessWidget {
 }
 
 class _AddColorBtnImpl extends StatelessWidget {
-  const _AddColorBtnImpl({super.key});
+  const _AddColorBtnImpl();
 
   void _addColor(BuildContext ctx) {
     final controller = ctx.read<DialogProvider>();
     controller.show(name: 'color-picker');
-    print(controller.currentOption);
   }
 
   @override
