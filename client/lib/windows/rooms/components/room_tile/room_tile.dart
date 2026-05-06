@@ -27,6 +27,10 @@ class RoomTile extends StatefulWidget {
 }
 
 class _RoomTileState extends State<RoomTile> {
+  void _openInviteUserDlg() {
+    // TODO:
+  }
+
   @override
   Widget build(BuildContext context) {
     // Name, ID, Total Users
@@ -94,7 +98,7 @@ class _RoomTileState extends State<RoomTile> {
                           child: AspectRatio(
                             aspectRatio: 1,
                             child: InkWell(
-                              onTap: () {},
+                              onTap: _openInviteUserDlg,
                               child: Icon(
                                 Icons.add,
                                 color:
