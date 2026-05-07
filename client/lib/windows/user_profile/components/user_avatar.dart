@@ -5,6 +5,6 @@ class UserAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return CircleAvatar(radius: 48, child: Icon(Icons.person, size: 48));
   }
 }
