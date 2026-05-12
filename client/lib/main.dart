@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:queue_up/app.dart';
+import 'package:queue_up/services/run_at_startup.dart';
 import 'package:queue_up/services/shared_prefs.dart';
 import 'package:queue_up/services/tray_manager.dart';
 import 'package:queue_up/services/window_service.dart';
@@ -15,4 +16,5 @@ Future<void> main() async {
   await ThemeConfig.init();
   await OverlaySettingsConfig.init();
   await MiscSettingsConfig.init();
+  await RunAtStartup.init();
 }

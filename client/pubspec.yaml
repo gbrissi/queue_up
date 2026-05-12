@@ -14,6 +14,7 @@ dependencies:
   desktop_multi_window: ^0.3.0
   flutter_colorpicker: ^1.1.0
   provider: ^6.1.5+1
+  launch_at_startup: ^0.5.1
 
   flutter:
     sdk: flutter

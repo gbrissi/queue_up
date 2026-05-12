@@ -17,11 +17,11 @@ class SeedColorOpts extends StatelessWidget {
           spacing: 2,
           runSpacing: 2,
           children: [
+            AddColorBtn(),
             ...List.generate(
               defaultColors.length,
               (i) => ColorOption(color: defaultColors[i]),
             ),
-            AddColorBtn(),
           ],
         ),
       ),
