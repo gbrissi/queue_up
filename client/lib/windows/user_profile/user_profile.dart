@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:queue_up/shared/components/base_window.dart';
-import 'package:queue_up/windows/user_profile/components/user_avatar.dart';
+import 'package:queue_up/windows/user_profile/components/user_avatar/user_avatar.dart';
 import 'package:queue_up/windows/user_profile/components/user_history/user_history.dart';
 import 'package:queue_up/windows/user_profile/components/user_meta.dart';
 
