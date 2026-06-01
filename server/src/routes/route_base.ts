@@ -2,10 +2,16 @@ import { Router } from "express";
 
 export default class RouteBase {
   public name: string;
-  public router: Router;
+  public router: Router = Router();
 
-  constructor(name: string) {
+  constructor({
+    name,
+    builder,
+  }: {
+    name: string;
+    builder: (router: Router) => void;
+  }) {
     this.name = name;
-    this.router = Router();
+    builder(this.router);
   }
 }
