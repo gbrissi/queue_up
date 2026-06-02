@@ -9,9 +9,9 @@ export default class RouteBase {
     builder,
   }: {
     name: string;
-    builder: (router: Router) => void;
+    builder: (router: Router) => Router;
   }) {
     this.name = name;
-    builder(this.router);
+    this.router = builder(this.router);
   }
 }
