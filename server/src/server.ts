@@ -3,9 +3,11 @@ dotenv.config();
 
 import app from "./config/app";
 import applyRoutes from "./config/routes";
+import logger from "./config/logger";
 
 applyRoutes(app);
 const port = process.env.PORT || 3000;
+
 app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
+  logger.info(`[server]: Server is running at http://localhost:${port}`);
 });
