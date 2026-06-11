@@ -5,7 +5,7 @@ interface HttpResponse<T> {
   isSuccess: boolean;
 }
 
-class HttpError implements HttpResponse<any> {
+export class HttpError implements HttpResponse<any> {
   statusCode: number;
   message: string;
   isSuccess: boolean;
@@ -23,7 +23,7 @@ class HttpError implements HttpResponse<any> {
   }
 }
 
-class HttpSuccess<T> implements HttpResponse<T> {
+export class HttpSuccess<T> implements HttpResponse<T> {
   data: T;
   statusCode: number;
   message: string;
@@ -45,12 +45,16 @@ class HttpSuccess<T> implements HttpResponse<T> {
   }
 }
 
-class ControllerBase {
-  create<T>(
-    promise: Promise<T>,
-    onSuccess: (data: any) => HttpResponse<T>,
-    onError: (error: any) => HttpError,
-  ) {
+export default class ControllerBase {
+  create<T>({
+    promise,
+    onSuccess,
+    onError,
+  }: {
+    promise: Promise<T>;
+    onSuccess: (data: T) => void;
+    onError: (error: Error) => void;
+  }) {
     return promise.then(onSuccess).catch(onError);
   }
 }
